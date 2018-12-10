@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.example.org/generateSchema"
+	xmlns:tns="http://www.example.org/generateSchema"
+	elementFormDefault="qualified">
+
+	<element name="booking">
+		<complexType>
+			<sequence>
+				<element name="bookingID" type="int"></element>
+				<element name="regNo" type="int"></element>
+				<element name="custID" type="int"></element>
+				<element name="bookingDate" type="date"></element>
+			</sequence>
+		</complexType>
+	</element>
+
+</schema>
