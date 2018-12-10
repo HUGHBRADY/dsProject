@@ -8,7 +8,7 @@
     	<input type="number" name="custID"/>
 	    <p>Car Registration: </p>
     	<input type="text" name="regNo"/>
-    	<p>Booking Date (YYYY/MM/DD): </p>
+    	<p>Booking Date: </p>
     	<input type="text" name="bookingDate" />
 	   	<input type="submit" value="Submit"/>
     </form>

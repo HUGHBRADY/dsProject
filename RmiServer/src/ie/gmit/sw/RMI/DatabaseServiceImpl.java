@@ -33,10 +33,14 @@ public class DatabaseServiceImpl extends UnicastRemoteObject implements Database
 		stmt = conn.createStatement();
 
 		List<Booking> List = new ArrayList<Booking>();
+		
+		// Query
 		String strSelect = "select * from booking;";
 
+		// Execute query
 		ResultSet rs = stmt.executeQuery(strSelect);
 
+		// Populate result set with query result
 		while (rs.next()) { 
 			int bookingID = rs.getInt("bookingID");
 			int custID = rs.getInt("custID");
@@ -47,33 +51,39 @@ public class DatabaseServiceImpl extends UnicastRemoteObject implements Database
 			List.add(b);			
 		}
 		
+		// Return result set
 		return List;
 	}
 	
 	// WRITE function
 	@Override
 	public List<Booking> write(String bookingDetails) throws RemoteException, SQLException {
+		System.out.println(bookingDetails);
 		stmt = conn.createStatement();
 		
 		List<Booking> List = new ArrayList<Booking>();
 				
-		bookingDetails = bookingDetails.replace("bookingID=", "");
-		bookingDetails = bookingDetails.replace("custID=", "");
-		bookingDetails = bookingDetails.replace("regNo=", "");
-		bookingDetails = bookingDetails.replace("bookingDate=", "");
+		// Take in strings from create.jsp file and get's rid of filler
+		// so we have a string consisting of the values to put into the db
+		bookingDetails = bookingDetails.replace("Booking Number:", "");
+		bookingDetails = bookingDetails.replace("Customer Number:", "");
+		bookingDetails = bookingDetails.replace("Car Registration:", "");
+		bookingDetails = bookingDetails.replace("Booking Date:", "");
 		bookingDetails = bookingDetails.replace("&", "', '");
-		
 		bookingDetails = bookingDetails + "'";
-				
+		
+		// Create the query
 		String insertQuery = "INSERT INTO booking (bookingID, custID, regNo, bookingDate) VALUES " + 
 		"(NULL, '" + bookingDetails + ");";
 		
+		// Insert the query
 		stmt.executeUpdate(insertQuery);
-		
 		String selectQuery = "select * from bookings ORDER BY bookingID";
 		
+		// Get the result
 		ResultSet rs = stmt.executeQuery(selectQuery);
 		
+		// Populate result set with variables
 		while(rs.next()){
 			int bookingID = rs.getInt("bookingID");
 			int custID = rs.getInt("custID");
@@ -89,53 +99,17 @@ public class DatabaseServiceImpl extends UnicastRemoteObject implements Database
 			
 			List.add(b);
 		}
+		// Return the table
 		return List;
 	}
 	
-	// UPDATE function
+	// UPDATE function - not implemented
 	@Override
 	public List<Booking> update(String bookingDetails) throws RemoteException, SQLException {
 		stmt = conn.createStatement();
 
 		List<Booking> List = new ArrayList<Booking>();
-			/*
-		bookingDetails = bookingDetails.replace("&", "', ");
-		bookingDetails = bookingDetails.replace("bookingID", "bookingID='");
-		bookingDetails = bookingDetails.replace("custID=", "custID='");
-		bookingDetails = bookingDetails.replace("regNo=", "regNo='");
-		bookingDetails = bookingDetails.replace("bookingDate=", "bookingDate='");
-		
-		bookingDetails = bookingDetails + "'";
-		
-		bookingDetails = bookingDetails.replace("bookingId=''", "");
-		bookingDetails = bookingDetails.replace("custID=''", "");
-		bookingDetails = bookingDetails.replace("regNo=''", "");
-		bookingDetails = bookingDetails.replace("bookingDate=''", "");
-				
-		String insertQuery = "UPDATE booking SET " + bookingDetails + " WHERE " + bookingID + ";";
-				
-		stmt.executeUpdate(insertQuery);
-		
-		String selectQuery = "select * from booking ORDER BY bookingID";
-		
-		ResultSet rs = stmt.executeQuery(selectQuery);
-		
-		while(rs.next()){
-			int bookingID = rs.getInt("bookingID");
-			int custID = rs.getInt("custID");
-			String regNo = rs.getString("regNo");
-			String bookingDate = rs.getString("bookingDate");
-			
-			Booking b = new Booking();
-			
-			b.setBookingID(bookingID);
-			b.setCustID(custID);
-			b.setRegNo(regNo);
-			b.setBookingDate(bookingDate);
-			
-			List.add(b);			
-		}
-*/
+
 		return List;
 	}
 
@@ -146,14 +120,16 @@ public class DatabaseServiceImpl extends UnicastRemoteObject implements Database
 		
 		List<Booking> List = new ArrayList<Booking>();
 		
+		// Create a variable for the delete query
 		String insertQuery = "DELETE FROM booking WHERE " + deleteID + ";";
-				
+		// Execute it
 		stmt.executeUpdate(insertQuery);
-		
+
 		String selectQuery = "select * from booking ORDER BY bookingID";
 
 		ResultSet rs = stmt.executeQuery(selectQuery);
 		
+		// Populate the result set with the table contents
 		while(rs.next()){
 			int bookingID = rs.getInt("bookingID");
 			int custID = rs.getInt("custID");
@@ -169,9 +145,9 @@ public class DatabaseServiceImpl extends UnicastRemoteObject implements Database
 			
 			List.add(b);
 		}
+		// Return the table
 		return List;
 	}
-	
-	
+		
 	
 }

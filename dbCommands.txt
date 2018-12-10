@@ -1,0 +1,16 @@
+CREATE database IF NOT exists bookings;
+
+USE bookings;
+
+DROP TABLE IF exists customer;
+
+CREATE TABLE booking (
+	bookingID int NOT NULL,
+	custID int NOT NULL,
+	regNo varchar(20) NOT NULL,
+	bookingDate varchar(20) NOT NULL,
+	PRIMARY KEY (bookingID)
+);
+
+INSERT INTO booking VALUES (1, 1, '07-CN-1234', '2018-12-01');
+INSERT INTO booking VALUES (2, 2, '11-CN-4321', '2018-12-07');

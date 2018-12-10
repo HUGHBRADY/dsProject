@@ -31,7 +31,7 @@ public class MyResource {
 		return ds.read();
 	}
 	
-	@GET
+	@POST
     @Produces(MediaType.APPLICATION_XML)
     @Path("/create")
     public List<Booking> createOrder(String bookingDetails) throws MalformedURLException, RemoteException, Exception{
