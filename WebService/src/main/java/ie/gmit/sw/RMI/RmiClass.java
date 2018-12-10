@@ -11,10 +11,9 @@ public class RmiClass {
 
 	public RmiClass() throws Exception {
 		ch = (DatabaseService) Naming.lookup("rmi://127.0.0.1:1099/database");
-
 	}
 
-	// ============== READ ====================
+	// READ
 	public List<Booking> readData() throws Exception {
 		return ch.read();
 	}
